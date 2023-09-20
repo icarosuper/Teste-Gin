@@ -8,6 +8,8 @@ import (
 )
 
 func CreateUser(username string, db *sql.DB) error {
+	fmt.Println("username", username)
+
 	if username == "" {
 		return errors.New("user should have a name")
 	}
