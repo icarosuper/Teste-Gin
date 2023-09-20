@@ -3,19 +3,10 @@ package controllers
 import (
 	"Api/entities"
 	"database/sql"
-	"errors"
 	"fmt"
 )
 
-func CreateUser(username string, db *sql.DB) error {
-	fmt.Println("username", username)
-
-	if username == "" {
-		return errors.New("user should have a name")
-	}
-
-	user := entities.User{username}
-
+func CreateUser(user entities.User, db *sql.DB) error {
 	rows, err := db.Query(fmt.Sprintf("INSERT INTO users VALUES DEFAULT %s RETURNING uid", user.Name))
 	if err != nil {
 		return err
