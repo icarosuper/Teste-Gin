@@ -7,7 +7,7 @@ import (
 )
 
 func CreateUser(user entities.User, db *sql.DB) error {
-	rows, err := db.Query(fmt.Sprintf("INSERT INTO users VALUES DEFAULT %s RETURNING uid", user.Name))
+	rows, err := db.Query(fmt.Sprintf("INSERT INTO users (name) VALUES ('%s')", user.Name))
 	if err != nil {
 		return err
 	}
