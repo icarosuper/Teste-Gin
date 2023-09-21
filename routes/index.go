@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"Api/routes/users"
 	"database/sql"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -14,5 +15,5 @@ func SetRoutes(router *gin.Engine, db *sql.DB) {
 		})
 	})
 
-	UserRoutes(router, db)
+	routes.UserRoutes(router, db)
 }
