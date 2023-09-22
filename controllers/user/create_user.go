@@ -8,7 +8,7 @@ import (
 
 func CreateUser(user dto.CreateUserDTO, db *sql.DB) error {
 	createUserSQL := fmt.Sprintf(
-		"INSERT INTO users (uid, name, birthdate, role) VALUES (default, '%s', '%s', default)", user.Name, user.Birthdate,
+		"INSERT INTO users (uid, name, email, birthdate, role) VALUES (default, '%s', '%s', '%s', default)", user.Name, user.Email, user.Birthdate,
 	)
 
 	rows, err := db.Query(createUserSQL)

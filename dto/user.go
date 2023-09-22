@@ -5,16 +5,16 @@ import (
 	"time"
 )
 
-type Birthdate struct {
+type BirthdateFromReqDTO struct {
 	day   int
 	month int
 	year  int
 }
 
 type GetUserFromReqDTO struct {
-	Name  string
-	Email string
-	Birthdate
+	Name      string
+	Email     string
+	Birthdate BirthdateFromReqDTO
 }
 
 type CreateUserDTO struct {
@@ -26,6 +26,7 @@ type CreateUserDTO struct {
 
 type ReturnUserDTO struct {
 	Name      string
+	Email     string
 	Birthdate time.Time
 }
 
@@ -33,7 +34,7 @@ func ParseReqUser(user GetUserFromReqDTO) CreateUserDTO {
 	return CreateUserDTO{
 		Name:      user.Name,
 		Email:     user.Email,
-		Birthdate: utils.GetDate(user.day, time.Month(user.month), user.year),
+		Birthdate: utils.GetDate(user.Birthdate.day, time.Month(user.Birthdate.month), user.Birthdate.year),
 		role:      "user",
 	}
 }
