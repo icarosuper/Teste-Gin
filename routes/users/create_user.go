@@ -1,37 +1,35 @@
 package routes
 
 import (
-	controllers "Api/controllers/user"
+	usercontroller "Api/controllers/user"
 	"Api/dto"
 	"Api/utils"
-	"database/sql"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 	"net/http"
 )
 
-func CreateUser(router *gin.Engine, db *sql.DB) {
+func CreateUser(router *gin.Engine, db *gorm.DB) {
 	router.POST("/users", func(context *gin.Context) {
-		reqUser, err := utils.ParseRequestBody[dto.GetUserFromReqDTO](context)
+		var user dto.UserDTO
 
-		if err != nil {
-			context.JSON(http.StatusInternalServerError, gin.H{
-				"success": false,
-				"message": err.Error(),
-			})
-			return
-		}
-
-		err = controllers.CreateUser(dto.ParseReqUser(reqUser), db)
-
-		if err != nil {
+		if err := context.ShouldBindJSON(&user); err != nil {
 			context.JSON(http.StatusBadRequest, gin.H{
 				"success": false,
-				"message": err.Error(),
+				"message": err,
 			})
 			return
 		}
 
-		context.JSON(http.StatusBadRequest, gin.H{
+		fmt.Println(user)
+
+		if err := usercontroller.CreateUser(user, db); err != nil {
+			utils.SendUnknownError(err, context)
+			return
+		}
+
+		context.JSON(http.StatusOK, gin.H{
 			"success": true,
 			"message": "Usuário criado com sucesso!",
 		})

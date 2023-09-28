@@ -13,7 +13,10 @@ func main() {
 		panic(err)
 	}
 
-	db := database.GetDatabase()
+	db, err := database.SetupDb()
+	if err != nil {
+		panic(err)
+	}
 
 	router := gin.Default()
 

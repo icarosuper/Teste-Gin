@@ -2,18 +2,10 @@ package routes
 
 import (
 	"Api/routes/users"
-	"database/sql"
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"gorm.io/gorm"
 )
 
-func SetRoutes(router *gin.Engine, db *sql.DB) {
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-			"nig":     "lesgoo",
-		})
-	})
-
+func SetRoutes(router *gin.Engine, db *gorm.DB) {
 	routes.UserRoutes(router, db)
 }

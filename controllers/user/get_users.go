@@ -1,22 +1,14 @@
-package controllers
+package usercontroller
 
 import (
-	"Api/dto"
-	"Api/utils"
-	"database/sql"
+	"Api/entities"
+	"gorm.io/gorm"
 )
 
-func GetUsers(db *sql.DB) {
-	getUsersSQL := "SELECT * FROM users"
+func GetUsers(db *gorm.DB) ([]entities.User, error) {
+	var users []entities.User
 
-	rows, err := db.Query(getUsersSQL)
+	result := db.Find(&users)
 
-	if err != nil {
-		return
-	}
-	defer rows.Close()
-
-	utils.ParseDbRows[dto.GetUserFromReqDTO](rows)
-
-	return
+	return users, result.Error
 }

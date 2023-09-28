@@ -1,40 +1,23 @@
 package dto
 
 import (
-	"Api/utils"
+	"Api/entities"
 	"time"
 )
 
-type BirthdateFromReqDTO struct {
-	day   int
-	month int
-	year  int
-}
-
-type GetUserFromReqDTO struct {
+type UserDTO struct {
 	Name      string
 	Email     string
-	Birthdate BirthdateFromReqDTO
+	Birthdate string
 }
 
-type CreateUserDTO struct {
-	Name      string
-	Email     string
-	Birthdate time.Time
-	role      string
-}
+func ParseUserDTO(user UserDTO) (entities.User, error) {
+	birthdate, err := time.Parse("2006-01-02", user.Birthdate)
 
-type ReturnUserDTO struct {
-	Name      string
-	Email     string
-	Birthdate time.Time
-}
-
-func ParseReqUser(user GetUserFromReqDTO) CreateUserDTO {
-	return CreateUserDTO{
+	return entities.User{
 		Name:      user.Name,
 		Email:     user.Email,
-		Birthdate: utils.GetDate(user.Birthdate.day, time.Month(user.Birthdate.month), user.Birthdate.year),
-		role:      "user",
-	}
+		Birthdate: birthdate,
+		Role:      "user",
+	}, err
 }

@@ -1,13 +1,16 @@
 package entities
 
 import (
+	"github.com/google/uuid"
 	"time"
 )
 
 type User struct {
-	Uid       string
-	Name      string
-	Email     string
+	Id        uuid.UUID `gorm:"primaryKey; ->; type: uuid NOT NULL UNIQUE DEFAULT gen_random_uuid() PRIMARY KEY"`
+	Name      string    `gorm:"<-; type: VARCHAR (50) NOT NULL"`
+	Email     string    `gorm:"<-; type: VARCHAR (50) NOT NULL"`
 	Birthdate time.Time
-	role      string
+	Role      string
+	CreatedAt time.Time `gorm:"index; <-create"`
+	UpdatedAt time.Time
 }
