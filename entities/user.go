@@ -11,6 +11,6 @@ type User struct {
 	Email     string    `gorm:"type: VARCHAR(50); not null; unique"`
 	Birthdate time.Time `gorm:"not null"`
 	Role      string    `gorm:"type: VARCHAR(15); not null"`
-	CreatedAt time.Time `gorm:"->; type: timestamp with time zone DEFAULT NOW(); index"`
+	CreatedAt time.Time `gorm:"index"`
 	UpdatedAt time.Time
 }
