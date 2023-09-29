@@ -6,11 +6,11 @@ import (
 )
 
 type User struct {
-	Id        uuid.UUID `gorm:"primaryKey; ->; type: uuid NOT NULL UNIQUE DEFAULT gen_random_uuid() PRIMARY KEY"`
-	Name      string    `gorm:"<-; type: VARCHAR (50) NOT NULL"`
-	Email     string    `gorm:"<-; type: VARCHAR (50) NOT NULL"`
+	Id        uuid.UUID `gorm:"->; type: UUID DEFAULT gen_random_uuid(); not null; unique; primaryKey"`
+	Name      string    `gorm:"<-; type: VARCHAR (50); not null"`
+	Email     string    `gorm:"<-; type: VARCHAR (50); not null; unique"`
 	Birthdate time.Time
 	Role      string
-	CreatedAt time.Time `gorm:"index; <-create"`
+	CreatedAt time.Time `gorm:"<-create; index"`
 	UpdatedAt time.Time
 }
