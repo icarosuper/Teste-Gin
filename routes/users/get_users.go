@@ -17,15 +17,6 @@ func GetUsers(router *gin.Engine, db *gorm.DB) {
 			return
 		}
 
-		//fmt.Println(users[0].ID)
-		//fmt.Println(users[0].Name)
-		//fmt.Println(users[0].Email)
-		//fmt.Println(users[0].Birthdate)
-		//fmt.Println(users[0].Role)
-		//fmt.Println(users[0].CreatedAt)
-		//fmt.Println(users[0].UpdatedAt)
-		//fmt.Println(users[0].ActivatedAt)
-
 		context.JSON(http.StatusOK, gin.H{
 			"success": true,
 			"message": "",

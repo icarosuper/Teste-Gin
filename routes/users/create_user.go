@@ -4,7 +4,6 @@ import (
 	usercontroller "Api/controllers/user"
 	"Api/dto"
 	"Api/utils"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"net/http"
@@ -21,8 +20,6 @@ func CreateUser(router *gin.Engine, db *gorm.DB) {
 			})
 			return
 		}
-
-		fmt.Println(user)
 
 		if err := usercontroller.CreateUser(user, db); err != nil {
 			utils.SendUnknownError(err, context)
