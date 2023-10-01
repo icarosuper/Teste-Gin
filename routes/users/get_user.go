@@ -8,13 +8,13 @@ import (
 	"net/http"
 )
 
-type reqParams struct {
-	id int `uri:"id" binding:"required,int"`
+type GetUserParams struct {
+	id int `uri:"id" binding:"required, int"`
 }
 
 func GetUser(router *gin.Engine, db *gorm.DB) {
 	router.GET("/users/:1", func(context *gin.Context) {
-		var params reqParams
+		var params GetUserParams
 
 		if err := context.ShouldBindUri(&params); err != nil {
 			context.JSON(http.StatusBadRequest, gin.H{
@@ -24,7 +24,7 @@ func GetUser(router *gin.Engine, db *gorm.DB) {
 			return
 		}
 
-		user, err := usercontroller.GetUser(params.id, db)
+		user, err := usercontroller.GetUserById(params.id, db)
 
 		if err != nil {
 			utils.SendUnknownError(err, context)
@@ -34,7 +34,7 @@ func GetUser(router *gin.Engine, db *gorm.DB) {
 		context.JSON(http.StatusOK, gin.H{
 			"success": true,
 			"message": "",
-			"body":    user,
+			"user":    user,
 		})
 	})
 }

@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func GetUser(id int, db *gorm.DB) (entities.User, error) {
+func GetUserById(id int, db *gorm.DB) (entities.User, error) {
 	var user entities.User
 
 	result := db.Find(&user, id)

@@ -8,5 +8,4 @@ import (
 func UserRoutes(router *gin.Engine, db *gorm.DB) {
 	GetUsers(router, db)
 	GetUser(router, db)
-	CreateUser(router, db)
 }

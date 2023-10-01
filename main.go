@@ -22,7 +22,7 @@ func main() {
 
 	routes.SetRoutes(router, db)
 
-	err = router.Run("localhost:3000")
+	err = router.Run()
 
 	if err != nil {
 		panic(err)

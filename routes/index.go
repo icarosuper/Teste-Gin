@@ -1,11 +1,13 @@
 package routes
 
 import (
-	"Api/routes/users"
+	AuthRoutes "Api/routes/auth"
+	UserRoutes "Api/routes/users"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
 func SetRoutes(router *gin.Engine, db *gorm.DB) {
-	routes.UserRoutes(router, db)
+	AuthRoutes.AuthRoutes(router, db)
+	UserRoutes.UserRoutes(router, db)
 }

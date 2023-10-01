@@ -5,18 +5,25 @@ import (
 	"time"
 )
 
-type UserDTO struct {
-	Name      string
+type SignUpDto struct {
 	Email     string
+	Name      string
 	Birthdate string
+	Password  string
 }
 
-func ParseUserDTO(user UserDTO) (entities.User, error) {
+type SignInDto struct {
+	Email    string
+	Password string
+}
+
+func ParseSignUpDto(user SignUpDto) (entities.User, error) {
 	birthdate, err := time.Parse("2006-01-02", user.Birthdate)
 
 	return entities.User{
 		Name:      user.Name,
 		Email:     user.Email,
+		Password:  user.Password,
 		Birthdate: birthdate,
 		Role:      "user",
 	}, err
